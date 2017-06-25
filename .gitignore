@@ -1,5 +1,4 @@
-src/assets/*
-src/tmp_action/*
+build/logs/*
 .vagrant
 .DS_Store
 src/protected/runtime/*.log

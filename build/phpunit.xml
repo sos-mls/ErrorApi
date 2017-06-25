@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="../src/protected/tests/bootstrap.php"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         syntaxCheck="false"
+        >
+	<testsuites>
+        <testsuite name="error-api">
+            <directory suffix=".php">../src/protected/tests/models</directory>
+            <directory suffix=".php">../src/protected/tests/controllers</directory>
+            <directory suffix=".php">../src/protected/tests/commands</directory>
+        </testsuite>
+    </testsuites>
+
+    <logging>
+        <log type="coverage-html" target="./coverage"/>
+        <log type="coverage-clover" target="./logs/clover.xml"/>
+        <log type="coverage-crap4j" target="./logs/crap4j.xml"/>
+        <log type="junit" target="./logs/junit.xml" logIncompleteSkipped="false"/>
+    </logging>
+
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../src/protected/commands</directory>
+            <directory suffix=".php">../src/protected/components</directory>
+            <directory suffix=".php">../src/protected/controllers</directory>
+            <directory suffix=".php">../src/protected/models</directory>
+            <directory suffix=".php">../src/protected/traits</directory>
+            <exclude>
+                <directory suffix=".php">../src/protected/models/_base</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+</phpunit>
