@@ -7,7 +7,7 @@ return [
     'loginDuration' => 3600 * 24 * 30, // 30 days
 
     // this is used in error pages
-    'adminEmail' => 'services@skeleton.com',
+    'adminEmail' => 'services@errorapi.milf.com',
 
     // the copyright information displayed in the footer section
     'copyrightInfo' => 'Copyright &copy; 2017 by Error Api',

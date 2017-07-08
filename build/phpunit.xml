@@ -25,11 +25,8 @@
 
     <filter>
         <whitelist>
-            <directory suffix=".php">../src/protected/commands</directory>
-            <directory suffix=".php">../src/protected/components</directory>
             <directory suffix=".php">../src/protected/controllers</directory>
             <directory suffix=".php">../src/protected/models</directory>
-            <directory suffix=".php">../src/protected/traits</directory>
             <exclude>
                 <directory suffix=".php">../src/protected/models/_base</directory>
             </exclude>

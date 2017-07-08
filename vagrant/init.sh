@@ -1,9 +1,9 @@
 #!/bin/bash
 # update the machine
-sudo apt-get -y --force-yes update
+sudo apt -y --force-yes update
 
 #install vim ... cause why not
-sudo apt-get -y --force-yes install vim nmap
+sudo apt -y --force-yes install vim nmap
 
 #install git for getting necessary packages
-sudo apt-get -y --force-yes install git 
+sudo apt -y --force-yes install git 

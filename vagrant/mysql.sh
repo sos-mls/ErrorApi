@@ -1,9 +1,11 @@
 #!/bin/bash
-
+sudo rm /var/lib/apt/lists/lock
+sudo rm /var/cache/apt/archives/lock
 # Installing MySQL and it's dependencies, Also, setting up root password for MySQL as it will prompt to enter the password during installation
-sudo debconf-set-selections <<< "mysql-server-5.5 mysql-server/root_password password $DEFAULT_PASSWORD"
-sudo debconf-set-selections <<< "mysql-server-5.5 mysql-server/root_password_again password $DEFAULT_PASSWORD"
-sudo apt-get -y --force-yes install mysql-server libapache2-mod-auth-mysql php-mysql
+sudo apt -y --force-yes install mariadb-server php-mysql
+
+# Cleanup the password information.
+sudo mysql -u root -e "UPDATE mysql.user SET plugin = 'mysql_native_password', Password = PASSWORD('$DEFAULT_PASSWORD') WHERE User = 'root';FLUSH PRIVILEGES;"
 
 # Install Developer Schema
 sudo mysql --user="root" --password=$DEFAULT_PASSWORD < $SHELL_HOME/sql/error_api.sql

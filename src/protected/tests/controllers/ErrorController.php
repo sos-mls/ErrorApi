@@ -14,7 +14,7 @@
  * @author Christian Micklisch <christian.micklisch@successwithsos.com>
  */
 
-class AssetController_Test extends TestController
+class ErrorController_Test extends TestController
 {
 
     /**
@@ -22,7 +22,7 @@ class AssetController_Test extends TestController
      */
     public function setUp()
     {
-        $this->controller_name = 'AssetController';
+        $this->controller_name = 'ErrorController';
     }
 
     /**
@@ -42,8 +42,8 @@ class AssetController_Test extends TestController
     {
         $expectedOutput = "HTTP/1.1 200 OK\n" .
             "Content-type: application/json\n" .
-            '{"api":{"create":"https:\/\/bitbucket.org\/scooblyboo\/assetapi\/wiki\/api\/Create","use":"https:\/\/bitbucket.org\/scooblyboo\/assetapi\/wiki\/api\/Use","read":"https:\/\/bitbucket.org\/scooblyboo\/assetapi\/wiki\/api\/Read","delete":"https:\/\/bitbucket.org\/scooblyboo\/assetapi\/wiki\/api\/Delete"},"settings":"https:\/\/bitbucket.org\/scooblyboo\/assetapi\/wiki\/Settings","testing":"https:\/\/bitbucket.org\/scooblyboo\/assetapi\/wiki\/Testing"}';
+            '{"api":{"create":"https:\/\/bitbucket.org\/scooblyboo\/errorapi\/wiki\/api\/Create","solve":"https:\/\/bitbucket.org\/scooblyboo\/errorapi\/wiki\/api\/Solve","read":"https:\/\/bitbucket.org\/scooblyboo\/errorapi\/wiki\/api\/Read"},"settings":"https:\/\/bitbucket.org\/scooblyboo\/errorapi\/wiki\/Settings","testing":"https:\/\/bitbucket.org\/scooblyboo\/errorapi\/wiki\/Testing"}';
 
-        $this->assertControllerResponse('actionIndex', '/asset/', $expectedOutput);
+        $this->assertControllerResponse('actionIndex', '/error/', $expectedOutput);
     }
 }

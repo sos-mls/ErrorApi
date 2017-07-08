@@ -19,7 +19,7 @@ use Common\ApiController;
 class ErrorController extends ApiController
 {
     /**
-     * A general response for the user to get information
+     * A general response for the user to get information.
      *
      * The response contains where to get general information about the ErrorApi,
      * how to utilize the ErrorApi, Configuration of the ErrorApi, and Recommendations
@@ -30,9 +30,8 @@ class ErrorController extends ApiController
         $this->renderJSON([
             'api' => [
                 'create' => 'https://bitbucket.org/scooblyboo/errorapi/wiki/api/Create',
-                'use'    => 'https://bitbucket.org/scooblyboo/errorapi/wiki/api/Use',
+                'solve'  => 'https://bitbucket.org/scooblyboo/errorapi/wiki/api/Solve',
                 'read'   => 'https://bitbucket.org/scooblyboo/errorapi/wiki/api/Read',
-                'delete' => 'https://bitbucket.org/scooblyboo/errorapi/wiki/api/Delete',
             ],
             'settings' => 'https://bitbucket.org/scooblyboo/errorapi/wiki/Settings',
             'testing' => 'https://bitbucket.org/scooblyboo/errorapi/wiki/Testing'
