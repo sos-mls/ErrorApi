@@ -8,7 +8,7 @@ return CMap::mergeArray(
                 'class'=>'system.test.CDbFixtureManager',
             ],
             'db'=>[
-                'connectionString' => 'mysql:host=localhost;dbname=ErrorAPITestDB',
+                'connectionString' => 'mysql:host=localhost;dbname=ErrorTestAPIDB',
             ],
         ],
     ]

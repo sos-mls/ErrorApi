@@ -14,4 +14,6 @@ return [
 
     // The date format used by the database
     'dbDateFormat' => 'Y-m-d H:i:s',
+
+    'relative_error_dir' =>array_key_exists('HTTP_HOST', $_SERVER) ?  '//' . $_SERVER['HTTP_HOST'] . '/read/error/' : '',
 ];

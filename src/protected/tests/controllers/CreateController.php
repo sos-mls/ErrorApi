@@ -96,9 +96,9 @@ class CreateController_Test extends TestController
 
         $error_json = $this->getOKJSON('/create/error', 'actionError');
 
-        $this->assertTrue(Error::model()->errorHashId($error_json->error_hash_id)->exists());
-        if (Error::model()->errorHashId($error_json->error_hash_id)->exists()) {
-            $this->assertCreationEquals(Error::model()->errorHashId($error_json->error_hash_id)->find());
+        $this->assertTrue(DBError::model()->errorHashId($error_json->error_hash_id)->exists());
+        if (DBError::model()->errorHashID($error_json->error_hash_id)->exists()) {
+            $this->assertCreationEquals(DBError::model()->errorHashID($error_json->error_hash_id)->find());
         }
     }
 
@@ -138,9 +138,9 @@ class CreateController_Test extends TestController
      * Ensures that the error that was given is properly logged with the current
      * POST values of the information along with the user tracked.
      * 
-     * @param  Error  $error The error that was recently created.
+     * @param  DBError  $error The error that was recently created.
      */
-    private function assertCreationEquals(Error $error) 
+    private function assertCreationEquals(DBError $error) 
     {
         $this->assertEquals($error->information, $_POST['information'], "The information of the error given is not equal to the error that was created.");
 
