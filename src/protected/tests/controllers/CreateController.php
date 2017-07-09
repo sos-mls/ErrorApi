@@ -65,6 +65,34 @@ class CreateController_Test extends TestController
     }
 
     /**
+     * Contains an array of errors along with a slew of users.
+     * 
+     * @return array An array of information for Error Creation and user tracking.
+     */
+    public function input_actionErrorUsers()
+    {
+        return [
+            [
+                "Error Information",
+                [
+                    "user_hash_1",
+                    "user_hash_2",
+                    "user_hash_3"
+                ]
+            ],
+            [
+                "Trace: Error: WabaLubba Dub Dub
+                    at <anonymous>:2:10\n",
+                [ // check that the users are only added once.
+                    "user_hash_1",
+                    "user_hash_2",
+                    "user_hash_1"
+                ]
+            ]
+        ];
+    }
+
+    /**
      *
      *
      *
@@ -99,6 +127,81 @@ class CreateController_Test extends TestController
         $this->assertTrue(DBError::model()->errorHashId($error_json->error_hash_id)->exists());
         if (DBError::model()->errorHashID($error_json->error_hash_id)->exists()) {
             $this->assertCreationEquals(DBError::model()->errorHashID($error_json->error_hash_id)->find());
+        }
+    }
+
+    /**
+     * Tests that the actionCreate method is not repeating errors and instead updating
+     * the error with the latest count and last occurance.
+     * 
+     * @dataProvider input_actionError
+     * 
+     * @param  string $information   The information of the Error
+     * @param  string $email_address Whom to email when an error has been created.
+     * @param  string $user_hash_id  The user that received the given error.
+     */
+    public function test_actionErrorErrorTracking(
+        $information = "", 
+        $email_address = "", 
+        $user_hash_id = ""
+    ) {
+        $_POST = [
+            'information'   => $information,
+            'email_address' => $email_address,
+            'user_hash_id'  => $user_hash_id
+        ];
+
+        $error_json = $this->getOKJSON('/create/error', 'actionError');
+        sleep(1);
+        $repeat_error_json = $this->getOKJSON('/create/error', 'actionError');
+
+        $this->assertTrue(
+            $error_json->error_count < $repeat_error_json->error_count,
+            "The Repeated error is not being tracked and is treated as a new error. It should update the current error reference."
+        );
+
+        $this->assertTrue(
+            strtotime($error_json->last_occurrance_at) 
+                < strtotime($repeat_error_json->last_occurrance_at),
+            "The Repeated error is not being tracked and is treated as a new error. It should update the current error reference."
+        );
+    }
+
+    /**
+     * Tests the actionCreate method and its user tracking capabilities.
+     * 
+     * @dataProvider input_actionErrorUsers
+     * 
+     * @param  string $information   The information of the Error
+     * @param  string $user_hash_id  An array of user hash ids.
+     */
+    public function test_actionErrorUsers($information = "", array $user_hash_ids = []) {
+
+        $error_hash_id = null;
+
+        foreach ($user_hash_ids as $user_hash_id) {
+            $_POST = [
+                'information'   => $information,
+                'user_hash_id'  => $user_hash_id
+            ];
+
+            $error_json = $this->getOKJSON('/create/error', 'actionError');
+            $error_hash_id = $error_json->error_hash_id;
+        }
+
+        $this->assertTrue(DBError::model()->errorHashID($error_hash_id)->exists());
+
+        $error = DBError::model()->errorHashID($error_hash_id)->find();
+
+        foreach (array_unique($user_hash_ids) as $user_hash_id) {
+            $this->assertTrue(User::model()->userHashID($user_hash_id)->exists());
+            $user = User::model()->userHashID($user_hash_id)->find();
+            $this->assertTrue(
+                UserHasError::model()
+                    ->errorID($error->error_id)
+                    ->userID($user->user_id)
+                    ->exists()
+            );
         }
     }
 
