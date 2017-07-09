@@ -7,6 +7,7 @@
  */
 
 use Common\ApiController;
+use SendGrid_Restful\SendGrid;
 
 /**
  * The CreateController Saves the given error information and responds accordingly.
@@ -39,9 +40,14 @@ class CreateController extends ApiController
             try {
                 $error = $this->createError();
 
-                if (!array_key_exists(self::USER_HASH_ID_POST_KEY, $_POST) || 
+                if (array_key_exists(self::USER_HASH_ID_POST_KEY, $_POST) || 
                     !empty($_POST[self::USER_HASH_ID_POST_KEY])) {
                     $this->addUserToError($_POST[self::USER_HASH_ID_POST_KEY], $error);
+                }
+
+                if (array_key_exists(self::EMAIL_ADDRESS_POST_KEY, $_POST) || 
+                    !empty($_POST[self::EMAIL_ADDRESS_POST_KEY])) {
+                    $this->sendEmail($_POST[self::EMAIL_ADDRESS_POST_KEY], $error);
                 }
 
                 if (sizeof($error->getErrors()) == 0) {
@@ -114,6 +120,39 @@ class CreateController extends ApiController
             $user_has_error->user_id = $user->user_id;
             $user_has_error->error_id = $error->error_id;
             $user_has_error->save();
+        }
+    }
+
+    /**
+     * Sends an email relating to the error that has occured.
+     *
+     * If the user already exists in the system and is already logged with the given
+     * error then it will not be tracked. Otherwise it will create a User object and
+     * UserHasError object as necessary.
+     * 
+     * @param string  $user_hash_id The user hash id to attach to the error.
+     * @param DBError $error        The error that occured.
+     */
+    private function sendEmail($email_address = "", DBError $error)
+    {
+        if (!isset($error->last_email_at) ||
+            strtotime($error->last_email_at) < Yii::app()->params->minimum_eternal_email_execution_time) {
+            $error_message = $error->information;
+
+            if (strlen($error->information) > Yii::app()->params->max_error_email_length) {
+                $error_message = substr($error_message, 0, Yii::app()->params->max_error_email_length) . "...";
+            }
+
+            SendGrid::send(
+                $email_address,
+                "Error Occured",
+                [
+                    SendGrid::TEXT => ['Error: ' . $error_message],
+                    SendGrid::PREHEADER => ['An error has occured.'],
+                    SendGrid::BUTTON_TEXT => ['VIEW JSON'],
+                    SendGrid::BUTTON_LINK => [$error->getURL()]
+                ]
+            );
         }
     }
 }

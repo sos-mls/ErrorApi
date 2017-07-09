@@ -14,6 +14,14 @@
         { 
           "type": "vcs", 
           "url": "https://github.com/fufu70/FileClass.git"
+        },
+        { 
+          "type": "vcs",
+          "url": "https://github.com/fufu70/CurlClass.git"
+        },
+        { 
+          "type": "vcs",
+          "url": "https://github.com/fufu70/SendGrid-LightWeight-PHP-API.git"
         }
     ],
     "require": {
@@ -21,7 +29,8 @@
         "yiisoft/yii": "1.1.*",
         "hashids/hashids": "^1.0",
         "milf/common-php": "dev-master",
-        "fufu70/file-class": "dev-master",
-        "fufu70/reflection-class": "dev-master"
+        "fufu70/sendgrid-lightweight-api": "dev-master",
+        "fufu70/reflection-class": "dev-master",
+        "fufu70/curl-class": "dev-master"
     }
 }

@@ -16,6 +16,7 @@
  * @property integer $error_count
  * @property integer $user_count
  * @property string $last_occurrance_at
+ * @property string $last_email_at
  * @property string $created_at
  *
  * @property UserHasError[] $userHasErrors
@@ -43,9 +44,9 @@ abstract class BaseError extends GxActiveRecord {
 			array('error_hash_id, information', 'required'),
 			array('is_solved, error_count, user_count', 'numerical', 'integerOnly'=>true),
 			array('error_hash_id', 'length', 'max'=>256),
-			array('last_occurrance_at, created_at', 'safe'),
-			array('is_solved, error_count, user_count, last_occurrance_at, created_at', 'default', 'setOnEmpty' => true, 'value' => null),
-			array('error_id, error_hash_id, information, is_solved, error_count, user_count, last_occurrance_at, created_at', 'safe', 'on'=>'search'),
+			array('last_occurrance_at, last_email_at, created_at', 'safe'),
+			array('is_solved, error_count, user_count, last_occurrance_at, last_email_at, created_at', 'default', 'setOnEmpty' => true, 'value' => null),
+			array('error_id, error_hash_id, information, is_solved, error_count, user_count, last_occurrance_at, last_email_at, created_at', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,6 +70,7 @@ abstract class BaseError extends GxActiveRecord {
 			'error_count' => Yii::t('app', 'Error Count'),
 			'user_count' => Yii::t('app', 'User Count'),
 			'last_occurrance_at' => Yii::t('app', 'Last Occurrance At'),
+			'last_email_at' => Yii::t('app', 'Last Email At'),
 			'created_at' => Yii::t('app', 'Created At'),
 			'userHasErrors' => null,
 		);
@@ -84,6 +86,7 @@ abstract class BaseError extends GxActiveRecord {
 		$criteria->compare('error_count', $this->error_count);
 		$criteria->compare('user_count', $this->user_count);
 		$criteria->compare('last_occurrance_at', $this->last_occurrance_at, true);
+		$criteria->compare('last_email_at', $this->last_email_at, true);
 		$criteria->compare('created_at', $this->created_at, true);
 
 		return new CActiveDataProvider($this, array(
