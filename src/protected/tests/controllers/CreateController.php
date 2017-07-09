@@ -57,6 +57,13 @@ class CreateController_Test extends TestController
                 "deafult_hash_id"
             ],
             [
+                "Eruditionis habes multa temporum non uxor mea, et non vident et cyminum sparget ferreo canis exprimamus. Interdum vos iustus have ut sit ad aliquid in fornacem excitanda\n
+                Eruditionis habes multa temporum non uxor mea, et non vident et cyminum sparget ferreo canis exprimamus. Interdum vos iustus have ut sit ad aliquid in fornacem excitanda\n
+                Eruditionis habes multa temporum non uxor mea, et non vident et cyminum sparget ferreo canis exprimamus. Interdum vos iustus have ut sit ad aliquid in fornacem excitanda\n",
+                "christian.micklisch@successwithsos.com",
+                "very_long_email"
+            ],
+            [
                 "Error Information",
                 "",
                 ""
