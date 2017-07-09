@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Contains the ReadController class.
+ * Contains the SolveController class.
  *
  * @author  Christian Micklisch <christian.micklisch@successwithsos.com>
  */
@@ -9,25 +9,27 @@
 use Common\ApiController;
 
 /**
- * The ReadController Retrieves information about a given error.
+ * The SolveController lays a error to rest.
  *
  * @author Christian Micklisch <christian.micklisch@successwithsos.com>
  */
-class ReadController extends ApiController
+class SolveController extends ApiController
 {
     /**
      * Tries to get the error_hash_id from the given url request, if the error exists
-     * it solves the error and returns a json of the solved error.
+     * it returns information about that error.
      *
      * @return JSON The general error array.
      */
     public function actionError()
     {
-        $hash_id = $this->getHashID('read/error');
+        $hash_id = $this->getHashID('solve/error');
         if ($hash_id != "") {
             try {
                 if (DBError::model()->errorHashID($hash_id)->exists()) {
                     $error = DBError::model()->errorHashID($hash_id)->find();
+                    $error->is_solved = DBError::IS_SOLVED;
+                    $error->save();
                     $this->renderJSON($error->toArray());
                 } else {
                     $this->renderJSONError("Error not found");

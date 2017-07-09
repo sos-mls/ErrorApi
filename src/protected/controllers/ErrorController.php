@@ -24,6 +24,8 @@ class ErrorController extends ApiController
      * The response contains where to get general information about the ErrorApi,
      * how to utilize the ErrorApi, Configuration of the ErrorApi, and Recommendations
      * for integrating the assetApi into a server network.
+     * 
+     * @return JSON Information about the ErrorAPI.
      */
     public function actionIndex()
     {

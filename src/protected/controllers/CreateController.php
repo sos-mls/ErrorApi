@@ -77,7 +77,7 @@ class CreateController extends ApiController
         $error = null;
         if (DBError::model()->information($_POST[self::INFORMATION_POST_KEY])->exists()) {
             $error = DBError::model()->information($_POST[self::INFORMATION_POST_KEY])->find();
-            $error->is_solved = 0;
+            $error->is_solved = DBError::IS_NOT_SOLVED;
             $error->error_count = $error->error_count + 1;
             $error->last_occurrance_at = str_replace("+0000", "Z", date(DATE_ISO8601, getdate()[0]));
             $error->save();
@@ -85,7 +85,7 @@ class CreateController extends ApiController
             $error = new DBError();
             $error->error_hash_id = Yii::app()->random->hashID();
             $error->information = $_POST['information'];
-            $error->is_solved = 0;
+            $error->is_solved = DBError::IS_NOT_SOLVED;
             $error->error_count = 1;
             $error->last_occurrance_at = str_replace("+0000", "Z", date(DATE_ISO8601, getdate()[0]));
             $error->created_at = str_replace("+0000", "Z", date(DATE_ISO8601, getdate()[0]));
