@@ -135,8 +135,10 @@ class CreateController extends ApiController
      */
     private function sendEmail($email_address = "", DBError $error)
     {
+
+
         if (!isset($error->last_email_at) ||
-            strtotime($error->last_email_at) < Yii::app()->params->minimum_eternal_email_execution_time) {
+            strtotime($error->last_email_at) < time() - Yii::app()->params->minimum_eternal_email_execution_time) {
             $error_message = $error->information;
 
             if (strlen($error->information) > Yii::app()->params->max_error_email_length) {
@@ -153,6 +155,9 @@ class CreateController extends ApiController
                     SendGrid::BUTTON_LINK => [$error->getURL()]
                 ]
             );
+
+            $error->last_email_at = str_replace("+0000", "Z", date(DATE_ISO8601, getdate()[0]));
+            $error->save();
         }
     }
 }
