@@ -18,12 +18,9 @@ error_reporting(-1);
 
 $files = array_merge(
     glob(dirname(__FILE__) . '/protected/vendor/fufu70/reflection-class/src/*.php'),
-    glob(dirname(__FILE__) . '/protected/vendor/fufu70/file-class/src/*.php'),
-    glob(dirname(__FILE__) . '/protected/vendor/fufu70/file-class/src/file/*.php'),
     glob(dirname(__FILE__) . '/protected/vendor/milf/common-php/src/*.php'),
-    glob(dirname(__FILE__) . '/protected/vendor/milf/asset-library/src/*.php'),
-    glob(dirname(__FILE__) . '/protected/vendor/milf/asset-library/src/action/*.php'),
-    glob(dirname(__FILE__) . '/protected/vendor/milf/asset-library/src/file/*.php')
+    glob(dirname(__FILE__) . '/protected/vendor/fufu70/sendgrid-lightweight-api/src/*.php'),
+    glob(dirname(__FILE__) . '/protected/vendor/fufu70/curl-class/src/*.php')
 );
 
 require_once($yii);

@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `ErrorAPIDB`.`tbl_error` (
   `error_count` INT NULL DEFAULT 0,
   `user_count` INT NULL DEFAULT 0,
   `last_occurrance_at` DATETIME NULL,
+  `last_email_at` DATETIME NULL,
   `created_at` DATETIME NULL,
   PRIMARY KEY (`error_id`))
 ENGINE = InnoDB;
