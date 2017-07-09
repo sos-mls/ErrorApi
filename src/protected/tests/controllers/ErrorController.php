@@ -1,15 +1,15 @@
 <?php
 
 /**
- * Contains the AssetController_Test class.
+ * Contains the ErrorController_Test class.
  *
  * @author  Christian Micklisch <christian.micklisch@successwithsos.com>
  */
 
 /**
- * AssetController_Test class. A PHPUnit Test case class.
+ * ErrorController_Test class. A PHPUnit Test case class.
  *
- * Tests specific functions inside of the Asset controller class.
+ * Tests specific functions inside of the Error controller class.
  *
  * @author Christian Micklisch <christian.micklisch@successwithsos.com>
  */

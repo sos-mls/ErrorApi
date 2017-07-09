@@ -38,7 +38,7 @@ class CreateController_Test extends TestController
      */
 
     /**
-     * Contains an array of test files for deleting.
+     * Contains an array of test errors.
      * 
      * @return array An array of information for Error Creation.
      */
@@ -210,6 +210,11 @@ class CreateController_Test extends TestController
                     ->exists()
             );
         }
+
+        $this->assertEquals(
+            UserHasError::model()->errorID($error->error_id)->count(),
+            $error->user_count
+        );
     }
 
     /**

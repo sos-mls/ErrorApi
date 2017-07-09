@@ -22,7 +22,8 @@ class CreateController extends ApiController
 
     /**
      * Saves the given information into an error, if the post gives information then
-     * it goes to save that error, if 
+     * it goes to save that error. When a user is included it is added to the users list,
+     * and when an email is included then it is sent to that email.
      *
      * @return JSON     The general error array.
      */
@@ -30,7 +31,7 @@ class CreateController extends ApiController
     {
         if (empty($_POST)) {
             $this->renderJSONError("Not a proper http method type, please send a POST");
-        } else if (!array_key_exists(self::INFORMATION_POST_KEY, $_POST) || 
+        } else if (!array_key_exists(self::INFORMATION_POST_KEY, $_POST) ||
             empty($_POST[self::INFORMATION_POST_KEY])) {
             $this->renderJSONError("Error cannot be created as no " .
                 self::INFORMATION_POST_KEY .
@@ -40,14 +41,14 @@ class CreateController extends ApiController
             try {
                 $error = $this->createError();
 
-                if (array_key_exists(self::USER_HASH_ID_POST_KEY, $_POST) || 
+                if (array_key_exists(self::USER_HASH_ID_POST_KEY, $_POST) ||
                     !empty($_POST[self::USER_HASH_ID_POST_KEY])) {
-                    $this->addUserToError($_POST[self::USER_HASH_ID_POST_KEY], $error);
+                    $this->addUserToError($error, $_POST[self::USER_HASH_ID_POST_KEY]);
                 }
 
-                if (array_key_exists(self::EMAIL_ADDRESS_POST_KEY, $_POST) || 
+                if (array_key_exists(self::EMAIL_ADDRESS_POST_KEY, $_POST) ||
                     !empty($_POST[self::EMAIL_ADDRESS_POST_KEY])) {
-                    $this->sendEmail($_POST[self::EMAIL_ADDRESS_POST_KEY], $error);
+                    $this->sendEmail($error, $_POST[self::EMAIL_ADDRESS_POST_KEY]);
                 }
 
                 if (sizeof($error->getErrors()) == 0) {
@@ -66,7 +67,7 @@ class CreateController extends ApiController
      *
      * Creates an error from the given information and adds the current error_count value
      * by one, and tracks the creation and occurance date. If the error already exists then
-     * it simply updates the last_occurance_date, the error_count, and sets the is_solved 
+     * it simply updates the last_occurance_date, the error_count, and sets the is_solved
      * value to IS_NOT_SOLVED.
      *
      * @return Asset The error created from the file given.
@@ -100,11 +101,11 @@ class CreateController extends ApiController
      * If the user already exists in the system and is already logged with the given
      * error then it will not be tracked. Otherwise it will create a User object and
      * UserHasError object as necessary.
-     * 
-     * @param string  $user_hash_id The user hash id to attach to the error.
+     *
      * @param DBError $error        The error that occured.
+     * @param string  $user_hash_id The user hash id to attach to the error.
      */
-    private function addUserToError($user_hash_id = "", DBError $error)
+    private function addUserToError(DBError $error, $user_hash_id = "")
     {
         $user = null;
         if (User::model()->userHashID($user_hash_id)->exists()) {
@@ -120,6 +121,9 @@ class CreateController extends ApiController
             $user_has_error->user_id = $user->user_id;
             $user_has_error->error_id = $error->error_id;
             $user_has_error->save();
+
+            $error->user_count = UserHasError::model()->errorID($error->error_id)->count();
+            $error->save();
         }
     }
 
@@ -129,14 +133,12 @@ class CreateController extends ApiController
      * If the user already exists in the system and is already logged with the given
      * error then it will not be tracked. Otherwise it will create a User object and
      * UserHasError object as necessary.
-     * 
-     * @param string  $user_hash_id The user hash id to attach to the error.
+     *
      * @param DBError $error        The error that occured.
+     * @param string  $user_hash_id The user hash id to attach to the error.
      */
-    private function sendEmail($email_address = "", DBError $error)
+    private function sendEmail(DBError $error, $email_address = "")
     {
-
-
         if (!isset($error->last_email_at) ||
             strtotime($error->last_email_at) < time() - Yii::app()->params->minimum_eternal_email_execution_time) {
             $error_message = $error->information;
