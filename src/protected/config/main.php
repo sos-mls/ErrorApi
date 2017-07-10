@@ -56,8 +56,8 @@ return [
         ],
         'db' => [
             'connectionString' => 'mysql:host=localhost;dbname=ErrorAPIDB',
-            'username' => 'root',
-            'password' => 'default_password',
+            'username' => isset($_SERVER['errorapi_mysql_username']) ? $_SERVER['errorapi_mysql_username'] : 'root',
+            'password' => isset($_SERVER['errorapi_mysql_password']) ? $_SERVER['errorapi_mysql_password'] : 'default_password',
             'emulatePrepare' => true,
             'charset' => 'utf8',
             'tablePrefix' => 'tbl_',

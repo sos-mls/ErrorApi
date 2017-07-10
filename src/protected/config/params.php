@@ -15,7 +15,7 @@ return [
     // The date format used by the database
     'dbDateFormat' => 'Y-m-d H:i:s',
 
-    'relative_error_dir' =>array_key_exists('HTTP_HOST', $_SERVER) ?  '//' . $_SERVER['HTTP_HOST'] . '/read/error/' : '',
+    'relative_error_dir' => array_key_exists('HTTP_HOST', $_SERVER) ?  '//' . $_SERVER['HTTP_HOST'] . '/read/error/' : '',
     
     // one hour
     'minimum_eternal_email_execution_time' => 3600,
@@ -24,10 +24,10 @@ return [
     'max_error_email_length' => 100,
 
     'send_grid' => [
-        'username'    => 'fufu70',
-        'password'    => 'Lapland1!',
-        'key'         => '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',
+        'username'    => isset($_SERVER['send_grid_username']) ? $_SERVER['send_grid_username'] : '',
+        'password'    => isset($_SERVER['send_grid_password']) ? $_SERVER['send_grid_password'] : '',
+        'key'         => isset($_SERVER['send_grid_key']) ? $_SERVER['send_grid_key'] : '',
+        'template_id' => isset($_SERVER['send_grid_template_id']) ? $_SERVER['send_grid_template_id'] : '',
         'name'        => 'Error API',
-        'template_id' => '0cdd415a-28fe-4bf3-bedb-fe0854bf2950'
     ],
 ];
