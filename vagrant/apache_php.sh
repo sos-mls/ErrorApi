@@ -17,6 +17,12 @@ if [ $CLEAN_DOC_ROOT = "DocumentRoot/var/www/html" ]; then
 	sudo sed -i 's/\/var\/www\/html/\/var\/www\/error_api\/src/g' /etc/apache2/sites-enabled/000-default.conf
 fi
 
+# Set Apache Variables
+CONFIG_CONTENTS=$(<$SHELL_HOME/install/helpers/config.txt)
+CONFIG_CONTENTS=${CONFIG_CONTENTS//$'\n'/\\$'\n'} # escape newlines
+CONFIG_CONTENTS=${CONFIG_CONTENTS//\//\\\/} # escape slashes
+sudo sed -i "2s/^/$CONFIG_CONTENTS\n/" /etc/apache2/sites-enabled/000-default.conf
+
 # Installing PHP and it's dependencies
 sudo apt-get -y --force-yes install php libapache2-mod-php php-mcrypt php-xml
 sudo apt-get -y --force-yes install curl libcurl3 libcurl3-dev php-curl
