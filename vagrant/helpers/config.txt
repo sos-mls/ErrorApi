@@ -1,6 +1,6 @@
     SetEnv errorapi_mysql_username root
 	SetEnv errorapi_mysql_password default_password
-	SetEnv send_grid_username fufu70
-	SetEnv send_grid_password Lapland1!
-	SetEnv send_grid_key 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
-	SetEnv send_grid_template_id 0cdd415a-28fe-4bf3-bedb-fe0854bf2950
+	SetEnv send_grid_username My_SendGrid_Username
+	SetEnv send_grid_password My_SendGrid_Password
+	SetEnv send_grid_key My_SendGrid_Key
+	SetEnv send_grid_template_id My_SendGrid_TemplateId
