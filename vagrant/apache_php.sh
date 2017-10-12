@@ -31,5 +31,8 @@ sudo phpenmod mcrypt
 # Restart apache server after updating its root directory
 sudo service apache2 restart
 
+# Enabled CORS
+sudo a2enmod headers
+
 # For GII!!!
 sudo mkdir /var/www/error_api/src/assets

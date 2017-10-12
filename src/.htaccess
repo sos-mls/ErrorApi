@@ -4,3 +4,10 @@ RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]
+RewriteEngine On                  
+RewriteCond %{REQUEST_METHOD} OPTIONS 
+RewriteRule ^(.*)$ /blank.php [QSA,L]
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Max-Age "1000"
+Header always set Access-Control-Allow-Headers "X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding"
+Header always set Access-Control-Allow-Methods "POST, GET, OPTIONS, DELETE, PUT"
