@@ -1,4 +1,6 @@
 #!/bin/bash
+sudo rm /var/lib/dpkg/lock
+sudo dpkg --configure -a
 # update the machine
 sudo apt -y --force-yes update
 

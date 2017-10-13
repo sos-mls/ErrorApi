@@ -28,11 +28,11 @@ sudo apt-get -y --force-yes install php libapache2-mod-php php-mcrypt php-xml
 sudo apt-get -y --force-yes install curl libcurl3 libcurl3-dev php-curl
 sudo phpenmod mcrypt
 
-# Restart apache server after updating its root directory
-sudo service apache2 restart
-
 # Enabled CORS
 sudo a2enmod headers
+
+# Restart apache server after updating its root directory
+sudo service apache2 restart
 
 # For GII!!!
 sudo mkdir /var/www/error_api/src/assets
