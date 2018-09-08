@@ -31,12 +31,12 @@ class ErrorController extends ApiController
     {
         $this->renderJSON([
             'api' => [
-                'create' => 'https://bitbucket.org/scooblyboo/errorapi/wiki/api/Create',
-                'solve'  => 'https://bitbucket.org/scooblyboo/errorapi/wiki/api/Solve',
-                'read'   => 'https://bitbucket.org/scooblyboo/errorapi/wiki/api/Read',
+                'create' => 'https://github.com/sos-mls/ErrorApi/wiki/API-Create',
+                'solve'  => 'https://github.com/sos-mls/ErrorApi/wiki/API-Solve',
+                'read'   => 'https://github.com/sos-mls/ErrorApi/wiki/API-Read',
             ],
-            'settings' => 'https://bitbucket.org/scooblyboo/errorapi/wiki/Settings',
-            'testing' => 'https://bitbucket.org/scooblyboo/errorapi/wiki/Testing'
+            'settings' => 'https://github.com/sos-mls/ErrorApi/wiki/Settings',
+            'testing' => 'https://github.com/sos-mls/ErrorApi/wiki/Testing'
         ]);
     }
 }

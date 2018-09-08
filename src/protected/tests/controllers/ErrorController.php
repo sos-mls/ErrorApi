@@ -42,7 +42,7 @@ class ErrorController_Test extends TestController
     {
         $expectedOutput = "HTTP/1.1 200 OK\n" .
             "Content-type: application/json\n" .
-            '{"api":{"create":"https:\/\/bitbucket.org\/scooblyboo\/errorapi\/wiki\/api\/Create","solve":"https:\/\/bitbucket.org\/scooblyboo\/errorapi\/wiki\/api\/Solve","read":"https:\/\/bitbucket.org\/scooblyboo\/errorapi\/wiki\/api\/Read"},"settings":"https:\/\/bitbucket.org\/scooblyboo\/errorapi\/wiki\/Settings","testing":"https:\/\/bitbucket.org\/scooblyboo\/errorapi\/wiki\/Testing"}';
+            '{"api":{"create":"https:\/\/github.com\/sos-mls\/ErrorApi\/wiki\/API-Create","solve":"https:\/\/github.com\/sos-mls\/ErrorApi\/wiki\/API-Solve","read":"https:\/\/github.com\/sos-mls\/ErrorApi\/wiki\/API-Read"},"settings":"https:\/\/github.com\/sos-mls\/ErrorApi\/wiki\/Settings","testing":"https:\/\/github.com\/sos-mls\/ErrorApi\/wiki\/Testing"}';
 
         $this->assertControllerResponse('actionIndex', '/error/', $expectedOutput);
     }
